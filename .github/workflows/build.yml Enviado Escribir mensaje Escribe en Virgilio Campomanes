@@ -1,8 +1,9 @@
+
 name: Compilar Android AAB
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main, master, principal ]
 
 jobs:
   build:
