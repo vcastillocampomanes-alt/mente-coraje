@@ -25,6 +25,9 @@ jobs:
       - name: Instalar dependencias del proyecto
         run: npm install
 
+      - name: Compilar aplicación web
+        run: npm run build || true
+
       - name: Añadir plataforma Android
         run: |
           npx cap add android || true
