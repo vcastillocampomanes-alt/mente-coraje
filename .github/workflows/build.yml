@@ -25,7 +25,7 @@ jobs:
       - name: Instalar dependencias del proyecto
         run: npm install
 
-      - name: Añadir plataforma Android (si no existe)
+      - name: Añadir plataforma Android
         run: |
           npx cap add android || true
           npx cap sync android
