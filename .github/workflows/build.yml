@@ -1,0 +1,32 @@
+name: Compilar Android AAB
+
+on:
+  push:
+    branches: [ main, master, principal ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Reclamar código del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Java JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Dar permisos de ejecución a Gradle
+        run: chmod +x android/gradlew
+
+      - name: Compilar archivo AAB (Release)
+        run: |
+          cd android
+          ./gradlew bundleRelease
+
+      - name: Subir el archivo AAB resultante
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-aab
+          path: android/app/build/outputs/bundle/release/app-release.aab
