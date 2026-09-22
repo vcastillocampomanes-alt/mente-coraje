@@ -11,22 +11,15 @@ jobs:
       - name: Reclamar código del repositorio
         uses: actions/checkout@v4
 
-      - name: Listar contenido para ubicar gradlew
-        run: find . -name "gradlew"
-
       - name: Configurar Java JDK 17
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Compilar archivo AAB (Release)
+      - name: Dar permisos y compilar AAB
         run: |
-          # Encontraremos y ejecutaremos gradlew automáticamente donde esté
-          GRADLEW_PATH=$(find . -name "gradlew" -print -quit)
-          PROJECT_DIR=$(dirname "$GRADLEW_PATH")
-          echo "Carpeta de Android encontrada en: $PROJECT_DIR"
-          cd "$PROJECT_DIR"
+          cd android
           chmod +x gradlew
           ./gradlew bundleRelease
 
@@ -34,4 +27,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app-release-aab
-          path: "*/build/outputs/bundle/release/.aab"
+          path: android/app/build/outputs/bundle/release/app-release.aab
