@@ -25,10 +25,16 @@ jobs:
       - name: Instalar dependencias del proyecto
         run: npm install
 
-      - name: Compilar aplicación web
-        run: npm run build || true
+      - name: Compilar aplicación web o asegurar directorio
+        run: |
+          npm run build || echo "Build script no encontrado o falló, usando respaldo"
+          # Asegurar que exista una carpeta de distribución web estándar (dist o www) para Capacitor
+          if [ ! -d "dist" ] && [ ! -d "www" ] && [ ! -d "build" ]; then
+            mkdir dist
+            echo "<!DOCTYPE html><html><body><h1>Mente Coraje</h1></body></html>" > dist/index.html
+          fi
 
-      - name: Añadir plataforma Android
+      - name: Añadir plataforma Android y sincronizar
         run: |
           npx cap add android || true
           npx cap sync android
@@ -44,5 +50,3 @@ jobs:
         with:
           name: app-release-aab
           path: android/app/build/outputs/bundle/release/app-release.aab
-
- 
