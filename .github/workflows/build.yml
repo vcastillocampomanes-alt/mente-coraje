@@ -11,11 +11,24 @@ jobs:
       - name: Reclamar código del repositorio
         uses: actions/checkout@v4
 
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Configurar Java JDK 17
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
           java-version: '17'
+
+      - name: Instalar dependencias del proyecto
+        run: npm install
+
+      - name: Añadir plataforma Android (si no existe)
+        run: |
+          npx cap add android || true
+          npx cap sync android
 
       - name: Dar permisos y compilar AAB
         run: |
@@ -28,3 +41,6 @@ jobs:
         with:
           name: app-release-aab
           path: android/app/build/outputs/bundle/release/app-release.aab
+Enviado
+Escribir mensaje
+Escribe en Virgilio Campomanes
