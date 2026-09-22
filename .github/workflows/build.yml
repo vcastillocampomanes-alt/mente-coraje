@@ -18,15 +18,13 @@ jobs:
           java-version: '17'
 
       - name: Dar permisos de ejecución a Gradle
-        run: chmod +x android/gradlew
+        run: chmod +x gradlew
 
       - name: Compilar archivo AAB (Release)
-        run: |
-          cd android
-          ./gradlew bundleRelease
+        run: ./gradlew bundleRelease
 
       - name: Subir el archivo AAB resultante
         uses: actions/upload-artifact@v4
         with:
           name: app-release-aab
-          path: android/app/build/outputs/bundle/release/app-release.aab
+          path: app/build/outputs/bundle/release/app-release.aab
