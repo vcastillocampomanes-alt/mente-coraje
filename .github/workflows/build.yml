@@ -22,6 +22,7 @@ jobs:
 
       - name: Decode Keystore
         run: |
+         mkdir -p android/app
           echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/release.jks
 
       - name: Build Android Release Bundle (AAB)
