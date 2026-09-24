@@ -31,8 +31,10 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
-         ls -la
-         find . -mane gradlew
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew bundleRelease
           
       - name: Upload Signed AAB
         uses: actions/upload-artifact@v4
