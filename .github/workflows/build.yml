@@ -31,8 +31,7 @@ jobs:
           KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
-        working-directory: android
-        run: |
+        working-directory: android  
           chmod +x gradlew
           ./gradlew bundleRelease
           
